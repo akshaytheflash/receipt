@@ -24,6 +24,9 @@ npm install -g sysreceipt
 winget install akshaytheflash.receipt
 ```
 
+The winget package is in review at microsoft/winget-pkgs#467823. Until it merges,
+use scoop, npm or the direct download.
+
 Or download `receipt-x86_64-pc-windows-msvc.exe` from the
 [releases page](https://github.com/akshaytheflash/receipt/releases) and put it
 somewhere on `PATH`. Every release publishes `SHA256SUMS.txt`.
