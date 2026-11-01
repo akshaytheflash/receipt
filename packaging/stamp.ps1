@@ -18,12 +18,11 @@ $hash = (Get-FileHash $Exe -Algorithm SHA256).Hash.ToLower()
 Write-Output "sha256 $hash"
 
 $scoop = Join-Path $PSScriptRoot "scoop\receipt.json"
-$scoopJson = Get-Content $scoop -Raw | ConvertFrom-Json
-$scoopJson.architecture.'64bit'.hash = $hash
-$scoopJson | ConvertTo-Json -Depth 10 | Set-Content $scoop -Encoding utf8
+(Get-Content $scoop -Raw) -replace '"hash": "[0-9a-f]*"', "`"hash`": `"$hash`"" |
+    Set-Content $scoop -Encoding utf8 -NoNewline
 Write-Output "updated $scoop"
 
-$winget = Join-Path $PSScriptRoot "winget\akshaytheflash.receipt.installer.yaml"
+$winget = Join-Path $PSScriptRoot "winget\manifests\a\akshaytheflash\receipt\0.1.0\akshaytheflash.receipt.installer.yaml"
 (Get-Content $winget -Raw) -replace 'InstallerSha256: .*', "InstallerSha256: $hash" |
     Set-Content $winget -Encoding utf8 -NoNewline
 Write-Output "updated $winget"

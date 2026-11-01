@@ -12,10 +12,7 @@ and really changes the machine.
 ## Install
 
 ```
-winget install akshaytheflash.receipt
-```
-
-```
+scoop bucket add akshaytheflash https://github.com/akshaytheflash/scoop-bucket
 scoop install receipt
 ```
 
@@ -23,8 +20,19 @@ scoop install receipt
 npm install -g sysreceipt
 ```
 
-Or download `receipt-x86_64-pc-windows-msvc.exe` from the releases page and put
-it somewhere on `PATH`. Every release publishes `SHA256SUMS.txt`.
+```
+winget install akshaytheflash.receipt
+```
+
+Or download `receipt-x86_64-pc-windows-msvc.exe` from the
+[releases page](https://github.com/akshaytheflash/receipt/releases) and put it
+somewhere on `PATH`. Every release publishes `SHA256SUMS.txt`.
+
+Unsigned binary. Verify the hash before running it:
+
+```
+certutil -hashfile receipt-x86_64-pc-windows-msvc.exe SHA256
+```
 
 ## Use
 

@@ -2,3 +2,5 @@
 npm/bin/receipt.exe
 npm/*.tgz
 *.pdb
+dist/
+
