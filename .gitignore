@@ -1,0 +1,4 @@
+/target
+npm/bin/receipt.exe
+npm/*.tgz
+*.pdb

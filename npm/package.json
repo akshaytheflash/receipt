@@ -1,0 +1,35 @@
+{
+  "name": "sysreceipt",
+  "version": "0.1.0",
+  "description": "Run an installer, see everything it changed, undo it.",
+  "license": "MIT",
+  "homepage": "https://github.com/akshaytheflash/receipt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshaytheflash/receipt.git"
+  },
+  "bin": {
+    "receipt": "bin/receipt.js"
+  },
+  "files": [
+    "bin/receipt.js",
+    "bin/receipt.exe",
+    "README.md"
+  ],
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "installer",
+    "uninstall",
+    "registry",
+    "revert",
+    "windows"
+  ]
+}

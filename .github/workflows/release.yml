@@ -1,0 +1,44 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: rust toolchain
+        run: rustup update stable && rustup default stable
+
+      - name: cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: test
+        run: cargo test --all-targets
+
+      - name: build
+        run: cargo build --release --locked
+
+      - name: stage
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item target\release\receipt.exe dist\receipt-x86_64-pc-windows-msvc.exe
+          $h = (Get-FileHash dist\receipt-x86_64-pc-windows-msvc.exe -Algorithm SHA256).Hash.ToLower()
+          "$h  receipt-x86_64-pc-windows-msvc.exe" | Out-File -Encoding ascii dist\SHA256SUMS.txt
+          Get-Content dist\SHA256SUMS.txt
+
+      - name: release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "${{ github.ref_name }}"
+          gh release create $tag dist\receipt-x86_64-pc-windows-msvc.exe dist\SHA256SUMS.txt --title $tag --notes "See README.md. Verify the download with SHA256SUMS.txt."

@@ -1,0 +1,40 @@
+[package]
+name = "receipt"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Run an installer, see everything it changed, undo it."
+license = "MIT"
+repository = "https://github.com/akshaytheflash/receipt"
+readme = "README.md"
+
+[lib]
+name = "receipt"
+path = "src/lib.rs"
+
+[[bin]]
+name = "receipt"
+path = "src/main.rs"
+
+[[bin]]
+name = "fixture_installer"
+path = "src/bin/fixture_installer.rs"
+
+[dependencies]
+anyhow = "1"
+chrono = { version = "0.4", features = ["serde"] }
+clap = { version = "4", features = ["derive"] }
+dirs = "5"
+netstat2 = "0.11"
+notify = "6"
+owo-colors = "4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sysinfo = "0.32"
+winreg = "0.52"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
